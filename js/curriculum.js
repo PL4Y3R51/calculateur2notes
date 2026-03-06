@@ -1,4 +1,4 @@
-/* ============================================================
+Add /* ============================================================
    CURRICULUM DEFINITIONS — All study programs
    ============================================================ */
 const CURRICULA = {
@@ -348,6 +348,93 @@ const CURRICULA = {
       { name: "Systèmes numériques 1",                             noteRow: 34, coefRow: 35 },
       { name: "Mathématiques spécifiques 2",                       noteRow: 36, coefRow: 37 },
       { name: "Physique et simulation",                            noteRow: 38, coefRow: 39 },
+    ],
+  },
+
+  "ISC3-RS": {
+    label: "ISC 3 — Réseaux et Systèmes",
+    modules: [
+      {
+        module: "Réseaux avancés",
+        branches: [
+          { name: "Architectures de réseaux", coef: 3, sem: "A" },
+          { name: "Conception et exploitation de réseaux fixes et mobiles", coef: 4, sem: "A" },
+        ]
+      },
+      {
+        module: "Travail de bachelor",
+        branches: [
+          { name: "Travail de bachelor", coef: 12, sem: "P" },
+        ]
+      },
+      {
+        module: "Infrastructure, applications et sécurité",
+        branches: [
+          { name: "Infrastructures et systèmes virtualisés", coef: 3, sem: "P" },
+          { name: "Sécurité des applications Web", coef: 3, sem: "P" },
+          { name: "Sécurité IT III", coef: 3, sem: "P" },
+        ]
+      },
+      {
+        module: "Projet 2",
+        branches: [
+          { name: "Projet de semestre 5", coef: 4, sem: "A" },
+        ]
+      },
+      {
+        module: "Projet 3",
+        branches: [
+          { name: "Projet de semestre 6", coef: 5, sem: "P" },
+        ]
+      },
+      {
+        module: "Services et sécurité",
+        branches: [
+          { name: "Sécurité IT II", coef: 3.5, sem: "A" },
+          { name: "Services et applications IT", coef: 3.5, sem: "A" },
+        ]
+      },
+      {
+        module: "Systèmes avancés",
+        branches: [
+          { name: "Systèmes d'information", coef: 3, sem: "A" },
+          { name: "Systèmes de communication", coef: 2, sem: "A" },
+          { name: "Systèmes embarqués 2", coef: 3, sem: "A" },
+        ]
+      },
+      {
+        module: "Cours à Option RS 1",
+        branches: [
+          { name: "Programmation élégante en GO", coef: 2, sem: "A" },
+          { name: "Introduction au Traitement d'Images et à la vision", coef: 2, sem: "A" },
+        ]
+      },
+      {
+        module: "Cours à Option RS 2",
+        branches: [
+          { name: "Advanced Network Architecture", coef: 2, sem: "P" },
+          { name: "Game Design and Development", coef: 2, sem: "P" },
+        ]
+      },
+    ],
+    excelMap: [
+      { name: "Architectures de réseaux",                                       noteRow: 2,  coefRow: 3  },
+      { name: "Conception et exploitation de réseaux fixes et mobiles",             noteRow: 4,  coefRow: 5  },
+      { name: "Travail de bachelor",                                            noteRow: 6,  coefRow: 7  },
+      { name: "Infrastructures et systèmes virtualisés",                        noteRow: 8,  coefRow: 9  },
+      { name: "Sécurité des applications Web",                                  noteRow: 10, coefRow: 11 },
+      { name: "Sécurité IT III",                                                noteRow: 12, coefRow: 13 },
+      { name: "Projet de semestre 5",                                           noteRow: 14, coefRow: 15 },
+      { name: "Projet de semestre 6",                                           noteRow: 16, coefRow: 17 },
+      { name: "Sécurité IT II",                                                 noteRow: 18, coefRow: 19 },
+      { name: "Services et applications IT",                                    noteRow: 20, coefRow: 21 },
+      { name: "Systèmes d'information",                                         noteRow: 22, coefRow: 23 },
+      { name: "Systèmes de communication",                                      noteRow: 24, coefRow: 25 },
+      { name: "Systèmes embarqués 2",                                           noteRow: 26, coefRow: 27 },
+      { name: "Programmation élégante en GO",                                   noteRow: 28, coefRow: 29 },
+      { name: "Introduction au Traitement d'Images et à la vision",             noteRow: 30, coefRow: 31 },
+      { name: "Advanced Network Architecture",                                  noteRow: 32, coefRow: 33 },
+      { name: "Game Design and Development",                                    noteRow: 34, coefRow: 35 },
     ],
   },
 };
