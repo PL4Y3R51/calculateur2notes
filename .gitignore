@@ -1,2 +1,8 @@
 /notes_ISC1.xlsx
 /notes_isc1_backup.json
+node_modules/
+package.json
+package-lock.json
+notes_ISC2-ID.xltx
+notes_ISC2-RS.xltx
+notes_ISC2-IL.xltx

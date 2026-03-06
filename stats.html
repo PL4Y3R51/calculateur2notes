@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ISC1 — Statistiques</title>
+<title>ISC — Statistiques</title>
 <link rel="stylesheet" href="css/styles.css">
 <script src="js/theme.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
@@ -11,13 +11,14 @@
 <body>
 
 <header>
-  <h1>🎓 ISC1 — Statistiques</h1>
+  <h1 class="page-title" data-suffix="Statistiques">🎓 Statistiques</h1>
   <p>Visualisez vos résultats en un coup d'œil</p>
 </header>
 
 <nav>
   <a href="index.html">📝 Notes</a>
   <a href="stats.html" class="active">📊 Statistiques</a>
+  <select id="curriculum-select" onchange="switchCurriculum(this.value)"></select>
 </nav>
 <button class="theme-toggle" onclick="toggleTheme()" title="Changer le thème">🌙</button>
 

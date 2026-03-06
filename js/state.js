@@ -1,9 +1,21 @@
 /* ============================================================
    STATE MANAGEMENT
    Handles localStorage persistence for grade data.
-   Depends on: (nothing)
+   Depends on: curriculum.js (for currentCurriculumId)
    ============================================================ */
-const STORAGE_KEY = "isc1_grades";
+function storageKey() {
+  return "grades_" + currentCurriculumId;
+}
+
+/* Migrate legacy storage key from before multi-curriculum support */
+(function migrateOldStorage() {
+  const OLD_KEY = "isc1_grades";
+  const old = localStorage.getItem(OLD_KEY);
+  if (old && !localStorage.getItem("grades_ISC1")) {
+    localStorage.setItem("grades_ISC1", old);
+    localStorage.removeItem(OLD_KEY);
+  }
+})();
 
 function emptyBranch() {
   return { grades: [], exam: null, bonus: 0 };
@@ -11,14 +23,14 @@ function emptyBranch() {
 
 function loadState() {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
+    const raw = localStorage.getItem(storageKey());
     if (raw) return JSON.parse(raw);
   } catch (_) { /* ignore corrupt data */ }
   return {};
 }
 
 function saveState() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  localStorage.setItem(storageKey(), JSON.stringify(state));
 }
 
 function getBranch(name) {

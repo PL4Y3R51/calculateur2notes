@@ -259,4 +259,5 @@ function buildPage() {
 }
 
 /* --- Init -------------------------------------------------- */
+initCurriculumSelector();
 buildPage();

@@ -186,7 +186,7 @@ function exportData() {
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = "notes_isc1_backup.json";
+  a.download = "notes_" + currentCurriculumId.toLowerCase() + "_backup.json";
   a.click();
   URL.revokeObjectURL(url);
 }
@@ -274,4 +274,5 @@ function importExcel(event) {
 }
 
 /* --- Init -------------------------------------------------- */
+initCurriculumSelector();
 render();

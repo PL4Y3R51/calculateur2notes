@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ISC1 — Calculateur de Notes</title>
+<title>ISC — Calculateur de Notes</title>
 <link rel="stylesheet" href="css/styles.css">
 <script src="js/theme.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
@@ -11,13 +11,14 @@
 <body>
 
 <header>
-  <h1>🎓 ISC1 — Calculateur de Notes</h1>
+  <h1 class="page-title" data-suffix="Calculateur de Notes">🎓 Calculateur de Notes</h1>
   <p>Entrez vos notes pour calculer automatiquement vos moyennes</p>
 </header>
 
 <nav>
   <a href="index.html" class="active">📝 Notes</a>
   <a href="stats.html">📊 Statistiques</a>
+  <select id="curriculum-select" onchange="switchCurriculum(this.value)"></select>
 </nav>
 <button class="theme-toggle" onclick="toggleTheme()" title="Changer le thème">🌙</button>
 
@@ -29,7 +30,7 @@
   <button onclick="document.getElementById('import-file').click()" title="Charger un fichier JSON">📤 Importer JSON</button>
   <input type="file" id="import-file" accept=".json" onchange="importData(event)">
   <button onclick="document.getElementById('import-xlsx').click()" title="Importer depuis un fichier Excel (.xlsx)">📊 Importer Excel</button>
-  <input type="file" id="import-xlsx" accept=".xlsx,.xls" onchange="importExcel(event)" style="display:none">
+  <input type="file" id="import-xlsx" accept=".xlsx,.xls,.xltx" onchange="importExcel(event)" style="display:none">
   <button class="danger" onclick="resetData()" title="Effacer toutes les notes">🗑️ Réinitialiser</button>
 </div>
 

@@ -81,6 +81,22 @@ nav a {
 nav a:hover { background: var(--primary-light); color: var(--primary); }
 nav a.active { background: var(--primary); color: white; border-color: var(--primary); }
 
+/* --- Curriculum selector ----------------------------------- */
+#curriculum-select {
+  padding: .45rem .7rem;
+  border-radius: 8px;
+  font-size: .85rem;
+  font-weight: 500;
+  color: var(--text);
+  border: 1px solid var(--border);
+  background: var(--card);
+  cursor: pointer;
+  outline: none;
+  transition: border-color .15s;
+}
+#curriculum-select:hover,
+#curriculum-select:focus { border-color: var(--primary); }
+
 /* --- Dark mode toggle -------------------------------------- */
 .theme-toggle {
   position: fixed;
