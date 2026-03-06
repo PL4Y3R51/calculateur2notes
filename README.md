@@ -33,6 +33,22 @@ Les calculs reproduisent exactement les formules du fichier Excel :
 - **Moyenne de module** = moyenne pondérée des moyennes de branches (arrondies à 0.1), arrondie au 0.5 le plus proche (MROUND)
 - **Moyenne générale** = moyenne pondérée des moyennes de modules par leurs coefficients
 
-## Structure du programme
+## Structure du projet
 
-Tout est contenu dans un seul fichier `index.html` (HTML + CSS + JS). La structure du cursus ISC1 est définie dans la constante `CURRICULUM` au début du script — modifiable pour d'autres programmes.
+```
+index.html          Page principale (saisie des notes)
+stats.html          Page statistiques (graphiques)
+css/styles.css      Styles partagés (light + dark mode)
+js/curriculum.js    Structure du cursus ISC1
+js/state.js         Gestion du localStorage
+js/calculations.js  Moteur de calcul des moyennes
+js/app.js           Rendu et interactions (page notes)
+js/stats.js         Graphiques Chart.js (page stats)
+js/theme.js         Bascule dark mode
+```
+
+La structure du cursus ISC1 est définie dans la constante `CURRICULUM` dans `js/curriculum.js` — modifiable pour d'autres programmes.
+
+## Crédits
+
+Basé sur le fichier Excel de Ludovic Peyter. Cette interface web a été entièrement créée avec l'IA.

@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ISC1 — Calculateur de Notes</title>
 <link rel="stylesheet" href="css/styles.css">
+<script src="js/theme.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 </head>
 <body>
@@ -18,6 +19,7 @@
   <a href="index.html" class="active">📝 Notes</a>
   <a href="stats.html">📊 Statistiques</a>
 </nav>
+<button class="theme-toggle" onclick="toggleTheme()" title="Changer le thème">🌙</button>
 
 <div class="summary" id="summary"></div>
 <div id="modules"></div>
@@ -32,7 +34,7 @@
 </div>
 
 <div class="credits">
-  Basé sur le fichier Excel de Ludovic Peyter — Interface web PoC
+  Basé sur le fichier Excel de Ludovic Peyter — Interface web entièrement créée avec l'IA
 </div>
 
 <script src="js/curriculum.js"></script>
