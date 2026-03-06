@@ -249,8 +249,7 @@ nav a.active { background: var(--primary); color: white; border-color: var(--pri
   display: flex;
   gap: 3px;
   align-items: center;
-  flex-wrap: nowrap;
-  overflow-x: auto;
+  flex-wrap: wrap;
   padding: 2px 0;
 }
 .grade-chip {

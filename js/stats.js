@@ -4,7 +4,7 @@
    Depends on: Chart.js (CDN)
    ============================================================ */
 
-const COLORS = [
+const COLORS_LIGHT = [
   '#4361ee', '#f72585', '#7209b7', '#3a0ca3',
   '#4cc9f0', '#4895ef', '#560bad', '#480ca8',
   '#b5179e', '#f77f00', '#06d6a0', '#118ab2',
@@ -12,9 +12,16 @@ const COLORS = [
   '#264653', '#2a9d8f', '#e9c46a', '#e76f51',
 ];
 
+const COLORS_DARK = [
+  '#818cf8', '#fb7185', '#a78bfa', '#7c3aed',
+  '#67e8f9', '#7dd3fc', '#c084fc', '#a855f7',
+  '#e879f9', '#fdba74', '#6ee7b7', '#38bdf8',
+  '#5eead4', '#fca5a5', '#fde68a', '#6ee7b7',
+  '#5eead4', '#2dd4bf', '#fbbf24', '#fb923c',
+];
+
 const PASS_LINE = {
   type: 'line',
-  borderColor: 'rgba(220,38,38,.35)',
   borderWidth: 2,
   borderDash: [6, 4],
   label: { display: true, content: 'Seuil 4.0', position: 'start', font: { size: 11 } },
@@ -22,8 +29,31 @@ const PASS_LINE = {
   value: 4
 };
 
+let _chartInstances = [];
+
 function buildPage() {
+  // Destroy previous chart instances on re-render
+  for (const c of _chartInstances) c.destroy();
+  _chartInstances = [];
+
   const container = document.getElementById('content');
+
+  /* --- Read CSS text color for Chart.js -------------------- */
+  const style = getComputedStyle(document.documentElement);
+  const textColor = style.getPropertyValue('--text').trim() || '#1e293b';
+  const textMuted = style.getPropertyValue('--text-muted').trim() || '#64748b';
+  const gridColor = style.getPropertyValue('--border').trim() || '#e2e8f0';
+
+  Chart.defaults.color = textColor;
+  Chart.defaults.borderColor = gridColor;
+
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  const COLORS = isDark ? COLORS_DARK : COLORS_LIGHT;
+  const passColor = isDark ? '#4ade80' : '#16a34a';
+  const failColor = isDark ? '#f87171' : '#dc2626';
+  const passColorAlpha = isDark ? 'rgba(74,222,128,.6)' : 'rgba(22,163,74,.6)';
+  const failColorAlpha = isDark ? 'rgba(248,113,113,.6)' : 'rgba(220,38,38,.6)';
+  const passLineColor = isDark ? 'rgba(248,113,113,.45)' : 'rgba(220,38,38,.35)';
 
   /* --- Gather data ----------------------------------------- */
   const branchData = [];
@@ -57,7 +87,7 @@ function buildPage() {
   const tooltipCb = { label: ctx => ' ' + ctx.dataset.label + ': ' + ctx.parsed.y.toFixed(2) };
 
   /* --- 1. Module bar chart --------------------------------- */
-  new Chart(document.getElementById('chartModules'), {
+  _chartInstances.push(new Chart(document.getElementById('chartModules'), {
     type: 'bar',
     data: {
       labels: moduleData.map(m => m.name),
@@ -73,7 +103,7 @@ function buildPage() {
       responsive: true,
       plugins: {
         legend: { display: false },
-        annotation: { annotations: { passLine: PASS_LINE } },
+        annotation: { annotations: { passLine: { ...PASS_LINE, borderColor: passLineColor } } },
         tooltip: { callbacks: tooltipCb },
       },
       scales: {
@@ -81,17 +111,17 @@ function buildPage() {
         x: { ticks: { font: { size: 11 } } }
       }
     }
-  });
+  }));
 
   /* --- 2. Branch bar chart --------------------------------- */
-  new Chart(document.getElementById('chartBranches'), {
+  _chartInstances.push(new Chart(document.getElementById('chartBranches'), {
     type: 'bar',
     data: {
       labels: branchData.map(b => b.name.length > 22 ? b.name.slice(0, 20) + '…' : b.name),
       datasets: [{
         label: 'Moyenne branche',
         data: branchData.map(b => b.avg),
-        backgroundColor: branchData.map(b => b.avg >= 4 ? '#16a34a' : '#dc2626'),
+        backgroundColor: branchData.map(b => b.avg >= 4 ? passColor : failColor),
         borderRadius: 5,
         maxBarThickness: 40,
       }]
@@ -108,20 +138,20 @@ function buildPage() {
         y: { ticks: { font: { size: 11 } } }
       }
     }
-  });
+  }));
 
   /* --- 3. Radar chart -------------------------------------- */
   if (moduleData.length >= 3) {
-    new Chart(document.getElementById('chartRadar'), {
+    _chartInstances.push(new Chart(document.getElementById('chartRadar'), {
       type: 'radar',
       data: {
         labels: moduleData.map(m => m.name),
         datasets: [{
           label: 'Modules',
           data: moduleData.map(m => m.avg),
-          backgroundColor: 'rgba(67,97,238,.15)',
-          borderColor: '#4361ee',
-          pointBackgroundColor: '#4361ee',
+          backgroundColor: isDark ? 'rgba(129,140,248,.2)' : 'rgba(67,97,238,.15)',
+          borderColor: COLORS[0],
+          pointBackgroundColor: COLORS[0],
           borderWidth: 2,
           pointRadius: 4,
         }]
@@ -133,7 +163,7 @@ function buildPage() {
           r: { min: 1, max: 6, ticks: { stepSize: 1, backdropColor: 'transparent' }, pointLabels: { font: { size: 11 } } }
         }
       }
-    });
+    }));
   } else {
     document.getElementById('chartRadar').parentElement.innerHTML = '<h2>Radar — Modules</h2><p style="color:var(--text-muted);text-align:center;padding:2rem 0;">Minimum 3 modules avec des notes requis.</p>';
   }
@@ -157,14 +187,14 @@ function buildPage() {
       if (idx > 9) idx = 9;
       bins[idx]++;
     }
-    new Chart(document.getElementById('chartDistrib'), {
+    _chartInstances.push(new Chart(document.getElementById('chartDistrib'), {
       type: 'bar',
       data: {
         labels: binLabels,
         datasets: [{
           label: 'Nb de notes',
           data: bins,
-          backgroundColor: bins.map((_, i) => i < 6 ? 'rgba(220,38,38,.6)' : 'rgba(22,163,74,.6)'),
+          backgroundColor: bins.map((_, i) => i < 6 ? failColorAlpha : passColorAlpha),
           borderRadius: 4,
         }]
       },
@@ -179,7 +209,7 @@ function buildPage() {
           x: { title: { display: true, text: 'Plage de notes' } }
         }
       }
-    });
+    }));
   }
 
   /* --- 5. Grade evolution per branch ----------------------- */
@@ -208,7 +238,7 @@ function buildPage() {
   }
   if (datasets.length > 0) {
     const labels = Array.from({ length: maxLen }, (_, i) => 'Note ' + (i + 1));
-    new Chart(document.getElementById('chartEvolution'), {
+    _chartInstances.push(new Chart(document.getElementById('chartEvolution'), {
       type: 'line',
       data: { labels, datasets },
       options: {
@@ -222,7 +252,7 @@ function buildPage() {
           x: { title: { display: true, text: 'Évaluation n°' } }
         }
       }
-    });
+    }));
   } else {
     document.getElementById('chartEvolution').parentElement.innerHTML = '<h2>Évolution des notes — par branche</h2><p style="color:var(--text-muted);text-align:center;padding:2rem 0;">Minimum 2 notes dans une branche requis pour afficher l\'évolution.</p>';
   }

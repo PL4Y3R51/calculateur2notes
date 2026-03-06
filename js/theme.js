@@ -13,6 +13,7 @@
     localStorage.setItem(KEY, next);
     const btn = document.querySelector(".theme-toggle");
     if (btn) btn.textContent = next === "dark" ? "☀️" : "🌙";
+    if (typeof buildPage === "function") buildPage();
   };
 
   document.addEventListener("DOMContentLoaded", function () {
