@@ -1,0 +1,343 @@
+/* ============================================================
+   ISC1 Grade Calculator — Shared Styles
+   ============================================================ */
+
+:root {
+  --bg: #f4f6fb;
+  --card: #ffffff;
+  --primary: #4361ee;
+  --primary-light: #eef1ff;
+  --text: #1e293b;
+  --text-muted: #64748b;
+  --border: #e2e8f0;
+  --green: #16a34a;
+  --green-bg: #dcfce7;
+  --red: #dc2626;
+  --red-bg: #fee2e2;
+  --orange: #ea580c;
+  --orange-bg: #fff7ed;
+  --radius: 10px;
+  --shadow: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+  --shadow-lg: 0 4px 12px rgba(0,0,0,.1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  padding: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* --- Header ------------------------------------------------ */
+header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+header h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: .25rem; }
+header p { color: var(--text-muted); font-size: .9rem; }
+
+/* --- Nav --------------------------------------------------- */
+nav {
+  display: flex;
+  justify-content: center;
+  gap: .5rem;
+  margin-bottom: 1.5rem;
+}
+nav a {
+  text-decoration: none;
+  padding: .45rem 1.1rem;
+  border-radius: 8px;
+  font-size: .85rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  background: var(--card);
+  transition: background .15s, color .15s;
+}
+nav a:hover { background: var(--primary-light); color: var(--primary); }
+nav a.active { background: var(--primary); color: white; border-color: var(--primary); }
+
+/* --- Summary cards ----------------------------------------- */
+.summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: .75rem;
+  margin-bottom: 1.5rem;
+}
+.summary-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: .85rem 1rem;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+.summary-card .label { font-size: .75rem; text-transform: uppercase; letter-spacing: .05em; color: var(--text-muted); margin-bottom: .2rem; }
+.summary-card .value { font-size: 1.35rem; font-weight: 700; }
+
+/* --- Module card ------------------------------------------- */
+.module {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+.module-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .85rem 1.15rem;
+  cursor: pointer;
+  user-select: none;
+  gap: .75rem;
+  flex-wrap: wrap;
+  border-bottom: 1px solid transparent;
+  transition: border-color .2s;
+}
+.module.open .module-header { border-bottom-color: var(--border); }
+.module-header .name { font-weight: 600; font-size: 1.05rem; flex: 1; }
+.module-header .badge {
+  font-size: .7rem;
+  padding: .15rem .5rem;
+  border-radius: 999px;
+  font-weight: 600;
+}
+.module-header .stats {
+  display: flex;
+  gap: .6rem;
+  font-size: .8rem;
+  flex-wrap: wrap;
+}
+.module-header .stats span { white-space: nowrap; }
+.module-header .stats .stat-label { color: var(--text-muted); }
+.module-header .chevron {
+  transition: transform .2s;
+  font-size: .85rem;
+  color: var(--text-muted);
+}
+.module.open .module-header .chevron { transform: rotate(90deg); }
+.module-body { display: none; padding: 0; }
+.module.open .module-body { display: block; }
+
+/* --- Branch table ------------------------------------------ */
+.branch-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .85rem;
+}
+.branch-table th {
+  background: var(--bg);
+  font-weight: 600;
+  font-size: .72rem;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: var(--text-muted);
+  padding: .45rem .6rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+  position: sticky;
+  top: 0;
+}
+.branch-table th.center,
+.branch-table td.center { text-align: center; }
+.branch-table td {
+  padding: .4rem .6rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+.branch-table tr:last-child td { border-bottom: none; }
+.branch-table .branch-name-cell {
+  font-weight: 500;
+  white-space: nowrap;
+}
+.sem-tag {
+  font-size: .6rem;
+  font-weight: 700;
+  padding: .1rem .35rem;
+  border-radius: 4px;
+  letter-spacing: .03em;
+  display: inline-block;
+}
+.sem-tag.A { background: #fef3c7; color: #92400e; }
+.sem-tag.P { background: #dbeafe; color: #1e40af; }
+.branch-table .coef-cell {
+  color: var(--text-muted);
+  text-align: center;
+  font-size: .82rem;
+}
+.branch-avg-cell {
+  font-weight: 700;
+  text-align: center;
+  font-size: .95rem;
+  padding: .15rem .4rem;
+  border-radius: 6px;
+  min-width: 3rem;
+}
+.branch-table .extras-cell { white-space: nowrap; }
+.extras-cell input {
+  width: 50px;
+  text-align: center;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: .2rem .25rem;
+  font-size: .8rem;
+  outline: none;
+  background: var(--card);
+}
+.extras-cell input:focus { border-color: var(--primary); }
+.extras-cell .extra-label {
+  font-size: .68rem;
+  color: var(--text-muted);
+  display: block;
+  text-align: center;
+}
+
+/* --- Grades cell ------------------------------------------- */
+.grades-cell { min-width: 0; }
+.grades-inner {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding: 2px 0;
+}
+.grade-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 2px 1px;
+  position: relative;
+  flex-shrink: 0;
+}
+.grade-chip input {
+  width: 46px;
+  text-align: center;
+  border: none;
+  background: transparent;
+  font-size: .82rem;
+  font-weight: 500;
+  padding: 1px 0;
+  outline: none;
+}
+.grade-chip input:focus { background: white; border-radius: 3px; }
+.grade-chip .coef-input {
+  font-size: .65rem;
+  color: var(--text-muted);
+  width: 38px;
+  border-top: 1px solid var(--border);
+  padding-top: 1px;
+}
+.grade-chip .remove-grade {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--red);
+  color: white;
+  font-size: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  opacity: 0;
+  transition: opacity .15s;
+  line-height: 1;
+}
+.grade-chip:hover .remove-grade { opacity: 1; }
+.add-grade-btn {
+  border: 1px dashed var(--border);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: .75rem;
+  padding: .3rem .45rem;
+  transition: border-color .15s, color .15s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.add-grade-btn:hover { border-color: var(--primary); color: var(--primary); }
+
+/* --- Avg colors -------------------------------------------- */
+.avg-pass { background: var(--green-bg); color: var(--green); }
+.avg-fail { background: var(--red-bg); color: var(--red); }
+.avg-none { background: var(--bg); color: var(--text-muted); }
+
+/* --- Footer / actions -------------------------------------- */
+.actions {
+  display: flex;
+  gap: .75rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+  padding-bottom: 2rem;
+}
+.actions button {
+  padding: .55rem 1.2rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  cursor: pointer;
+  font-size: .85rem;
+  transition: background .15s;
+}
+.actions button:hover { background: var(--primary-light); }
+.actions button.danger { color: var(--red); }
+.actions button.danger:hover { background: var(--red-bg); }
+#import-file, #import-xlsx { display: none; }
+
+/* --- Charts (stats page) ----------------------------------- */
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.chart-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.25rem;
+}
+.chart-card h2 {
+  font-size: .95rem;
+  font-weight: 600;
+  margin-bottom: .75rem;
+  color: var(--text);
+}
+.chart-card canvas { width: 100% !important; }
+.chart-card.full-width { grid-column: 1 / -1; }
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--text-muted);
+}
+.empty-state p { font-size: 1.1rem; margin-bottom: .5rem; }
+.empty-state a { color: var(--primary); }
+
+/* --- Credits ----------------------------------------------- */
+.credits { text-align: center; font-size: .75rem; color: var(--text-muted); margin-top: .5rem; padding-bottom: 1rem; }
+
+/* --- Responsive -------------------------------------------- */
+@media (max-width: 700px) {
+  body { padding: .5rem; }
+  .module-header { padding: .7rem .75rem; }
+  .branch-table { font-size: .78rem; }
+  .branch-table th, .branch-table td { padding: .3rem .35rem; }
+  .grade-chip input { width: 40px; font-size: .78rem; }
+  .charts-grid { grid-template-columns: 1fr; }
+  .chart-card { padding: .85rem; }
+}
